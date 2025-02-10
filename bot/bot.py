@@ -29,7 +29,8 @@ logger = logging.getLogger(__name__)
 async def post_init(application: Application) -> None:
     await application.bot.set_my_commands(
         [
-            ("start", "Bot restart")
+            ("start", "Bot restart"),
+            ("help", "Help")
         ]
     )
 
