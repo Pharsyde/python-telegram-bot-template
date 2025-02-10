@@ -65,7 +65,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     )
 
 
-async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Prompt same text & keyboard as `start` does but not as new message"""
     keyboard = keyboards.start_keyboard
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -76,6 +76,11 @@ async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         reply_markup=reply_markup,
         parse_mode=ParseMode.HTML
     )
+
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+  """Send a message when the command /help is issued."""
+  await update.message.reply_text("Help!")
 
 
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -118,6 +123,7 @@ def main() -> None:
 
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
